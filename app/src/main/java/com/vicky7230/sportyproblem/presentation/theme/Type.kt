@@ -1,4 +1,4 @@
-package com.vicky7230.sportyproblem.ui.theme
+package com.vicky7230.sportyproblem.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

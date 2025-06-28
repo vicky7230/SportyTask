@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.vicky7230.sportyproblem.di.AssistedViewModelFactory
 import com.vicky7230.sportyproblem.di.ViewModelFactory
 import com.vicky7230.sportyproblem.di.ViewModelKey
-import com.vicky7230.sportyproblem.ui.news.NewsViewModel
-import com.vicky7230.sportyproblem.ui.newsdetails.NewsDetailsViewModel
+import com.vicky7230.sportyproblem.presentation.news.NewsViewModel
+import com.vicky7230.sportyproblem.presentation.newsdetails.NewsDetailsViewModel
 
 
 import dagger.Binds

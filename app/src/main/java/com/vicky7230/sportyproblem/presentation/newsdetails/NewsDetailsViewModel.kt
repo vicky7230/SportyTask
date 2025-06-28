@@ -1,4 +1,4 @@
-package com.vicky7230.sportyproblem.ui.newsdetails
+package com.vicky7230.sportyproblem.presentation.newsdetails
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -28,7 +28,8 @@ class NewsDetailsViewModel @AssistedInject constructor(
                 title = newsDetailsScreen.title,
                 description = newsDetailsScreen.description,
                 urlToImage = newsDetailsScreen.urlToImage,
-                content = newsDetailsScreen.content
+                content = newsDetailsScreen.content,
+                url = newsDetailsScreen.url
             )
         )
     }

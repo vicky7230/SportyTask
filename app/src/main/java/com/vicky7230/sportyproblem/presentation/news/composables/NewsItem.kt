@@ -1,4 +1,4 @@
-package com.vicky7230.sportyproblem.ui.news.composables
+package com.vicky7230.sportyproblem.presentation.news.composables
 
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,8 +30,8 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.vicky7230.sportyproblem.R
 import com.vicky7230.sportyproblem.domain.model.Article
-import com.vicky7230.sportyproblem.ui.news.articles
-import com.vicky7230.sportyproblem.ui.theme.SportyProblemTheme
+import com.vicky7230.sportyproblem.presentation.news.articles
+import com.vicky7230.sportyproblem.presentation.theme.SportyProblemTheme
 
 @Composable
 fun NewsItem(
@@ -39,11 +41,23 @@ fun NewsItem(
 ) {
     Card(
         modifier = modifier,
+        shape = MaterialTheme.shapes.medium,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        ),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 2.dp,
+            pressedElevation = 8.dp
+        )
     ) {
         Row(
             modifier = Modifier
-                .padding(16.dp)
-                .clickable { onNewsArticleClick(article) }) {
+                .fillMaxWidth()
+                .clickable(onClick = { onNewsArticleClick(article) })
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(article.urlToImage)
@@ -57,27 +71,26 @@ fun NewsItem(
                     .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Crop,
             )
-            Column(modifier = Modifier.padding(start = 8.dp)) {
+            Column(modifier = Modifier.padding(start = 16.dp)) {
                 Text(
                     text = article.title,
-                    style = TextStyle(
-                        color = MaterialTheme.colorScheme.onSurface,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Medium,
-                    ),
+                    style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     modifier = Modifier.padding(top = 8.dp),
                     text = article.description,
-                    style = TextStyle(
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal
-                    ),
-                    maxLines = 4,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 3,
                     overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    modifier = Modifier.padding(top = 8.dp),
+                    text = article.source,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         }

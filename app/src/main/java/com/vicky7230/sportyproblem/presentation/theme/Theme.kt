@@ -1,4 +1,4 @@
-package com.vicky7230.sportyproblem.ui.theme
+package com.vicky7230.sportyproblem.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

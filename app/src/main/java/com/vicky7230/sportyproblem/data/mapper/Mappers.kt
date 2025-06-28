@@ -10,6 +10,7 @@ fun ArticleDto.toDomain() : Article {
         content = content,
         urlToImage = urlToImage,
         url = url,
-        publishedAt = publishedAt
+        publishedAt = publishedAt,
+        source = source.name
     )
 }

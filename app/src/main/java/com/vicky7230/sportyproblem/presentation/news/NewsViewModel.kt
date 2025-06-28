@@ -1,4 +1,4 @@
-package com.vicky7230.sportyproblem.ui.news
+package com.vicky7230.sportyproblem.presentation.news
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -12,10 +12,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.vicky7230.sportyproblem.ui.news.NewsScreenUi
-import com.vicky7230.sportyproblem.ui.news.NewsViewModel
-import com.vicky7230.sportyproblem.ui.newsdetails.NewsDetailsScreenUi
-import com.vicky7230.sportyproblem.ui.newsdetails.NewsDetailsViewModel
+import com.vicky7230.sportyproblem.presentation.news.NewsScreenUi
+import com.vicky7230.sportyproblem.presentation.news.NewsViewModel
+import com.vicky7230.sportyproblem.presentation.newsdetails.NewsDetailsScreenUi
+import com.vicky7230.sportyproblem.presentation.newsdetails.NewsDetailsViewModel
 
 @Composable
 fun AppNavGraph(
@@ -40,7 +40,8 @@ fun AppNavGraph(
                                 title = article.title,
                                 description = article.description,
                                 content = article.content,
-                                urlToImage = article.urlToImage
+                                urlToImage = article.urlToImage,
+                                url = article.url
                             )
                         )
                     },
@@ -52,6 +53,7 @@ fun AppNavGraph(
                 val articleDescription = navBackStackEntry.arguments?.getString("description") ?: ""
                 val articleContent = navBackStackEntry.arguments?.getString("content") ?: ""
                 val articleUrlToImage = navBackStackEntry.arguments?.getString("urlToImage") ?: ""
+                val articleUrl = navBackStackEntry.arguments?.getString("url") ?: ""
                 val newsDetailsViewModel =
                     viewModel<NewsDetailsViewModel>(
                         viewModelStoreOwner = navBackStackEntry,

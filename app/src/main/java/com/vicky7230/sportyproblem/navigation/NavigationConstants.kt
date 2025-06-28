@@ -14,5 +14,6 @@ data class NewsDetailsScreen(
     val title: String,
     val description: String,
     val content: String,
-    val urlToImage: String
+    val urlToImage: String,
+    val url: String
 )
