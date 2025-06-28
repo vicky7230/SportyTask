@@ -1,11 +1,11 @@
 package com.vicky7230.sportyproblem.ui.news.composables
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,21 +30,31 @@ fun NewsContent(
             NewsItem(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 article = article,
                 onNewsArticleClick = onNewsArticleClick
             )
-            if (index < articles.size - 1) {
-                HorizontalDivider(modifier = Modifier.padding(start = 128.dp))
-            }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun NewsContentPreview() {
-    SportyProblemTheme {
+fun NewsContentPreviewLight() {
+    SportyProblemTheme(darkTheme = false) {
+        NewsContent(
+            modifier = Modifier.fillMaxSize(),
+            articles = articles,
+            onNewsArticleClick = {}
+        )
+    }
+}
+
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun NewsContentPreviewDark() {
+    SportyProblemTheme(darkTheme = true) {
         NewsContent(
             modifier = Modifier.fillMaxSize(),
             articles = articles,

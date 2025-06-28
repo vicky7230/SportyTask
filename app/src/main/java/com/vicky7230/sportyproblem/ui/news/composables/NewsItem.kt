@@ -1,5 +1,6 @@
 package com.vicky7230.sportyproblem.ui.news.composables
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,12 +8,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -35,49 +37,71 @@ fun NewsItem(
     article: Article,
     onNewsArticleClick: (Article) -> Unit,
 ) {
-    Row(modifier = modifier.clickable { onNewsArticleClick(article) }) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(article.urlToImage)
-                .crossfade(true)
-                .build(),
-            contentDescription = "Article Image",
-            placeholder = painterResource(R.drawable.ic_loading),
-            error = painterResource(R.drawable.ic_error),
+    Card(
+        modifier = modifier,
+    ) {
+        Row(
             modifier = Modifier
-                .size(120.dp)
-                .clip(RoundedCornerShape(12.dp))
-        )
-        Column(modifier = Modifier.padding(start = 8.dp)) {
-            Text(
-                text = article.title,
-                style = TextStyle(
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
-                ),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                .padding(16.dp)
+                .clickable { onNewsArticleClick(article) }) {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(article.urlToImage)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "Article Image",
+                placeholder = painterResource(R.drawable.ic_loading),
+                error = painterResource(R.drawable.ic_error),
+                modifier = Modifier
+                    .size(120.dp)
+                    .clip(RoundedCornerShape(12.dp)),
+                contentScale = ContentScale.Crop,
             )
-            Text(
-                modifier = Modifier.padding(top = 8.dp),
-                text = article.description,
-                style = TextStyle(
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal
-                ),
-                maxLines = 4,
-                overflow = TextOverflow.Ellipsis
-            )
+            Column(modifier = Modifier.padding(start = 8.dp)) {
+                Text(
+                    text = article.title,
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                    ),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    modifier = Modifier.padding(top = 8.dp),
+                    text = article.description,
+                    style = TextStyle(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal
+                    ),
+                    maxLines = 4,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun NewsItemPreview() {
-    SportyProblemTheme {
+fun NewsItemPreviewLight() {
+    SportyProblemTheme(darkTheme = false) {
+        NewsItem(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            article = articles[0],
+            onNewsArticleClick = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun NewsItemPreviewDark() {
+    SportyProblemTheme(darkTheme = true) {
         NewsItem(
             modifier = Modifier
                 .fillMaxWidth()

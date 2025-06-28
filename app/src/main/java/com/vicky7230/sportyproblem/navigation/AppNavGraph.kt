@@ -14,6 +14,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.vicky7230.sportyproblem.ui.news.NewsScreenUi
 import com.vicky7230.sportyproblem.ui.news.NewsViewModel
+import com.vicky7230.sportyproblem.ui.newsdetails.NewsDetailsScreenUi
+import com.vicky7230.sportyproblem.ui.newsdetails.NewsDetailsViewModel
 
 @Composable
 fun AppNavGraph(
@@ -36,6 +38,7 @@ fun AppNavGraph(
                         navController.navigate(
                             NewsDetailsScreen(
                                 title = article.title,
+                                description = article.description,
                                 content = article.content,
                                 urlToImage = article.urlToImage
                             )
@@ -44,9 +47,22 @@ fun AppNavGraph(
                     onRetryClick = { newsViewModel.getNews() }
                 )
             }
-
-            composable<NewsDetailsScreen> {
-
+            composable<NewsDetailsScreen> { navBackStackEntry: NavBackStackEntry ->
+                val articleTitle = navBackStackEntry.arguments?.getString("title") ?: ""
+                val articleDescription = navBackStackEntry.arguments?.getString("description") ?: ""
+                val articleContent = navBackStackEntry.arguments?.getString("content") ?: ""
+                val articleUrlToImage = navBackStackEntry.arguments?.getString("urlToImage") ?: ""
+                val newsDetailsViewModel =
+                    viewModel<NewsDetailsViewModel>(
+                        viewModelStoreOwner = navBackStackEntry,
+                        factory = viewModelFactory,
+                    )
+                val state by newsDetailsViewModel.newsDetailsUiState.collectAsStateWithLifecycle()
+                NewsDetailsScreenUi(
+                    modifier = Modifier.fillMaxSize(),
+                    newsDetailsUiState = state,
+                    onBackClick  = { navController.popBackStack() },
+                )
             }
         }
     }

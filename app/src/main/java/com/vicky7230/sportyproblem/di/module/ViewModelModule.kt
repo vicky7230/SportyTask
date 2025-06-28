@@ -2,9 +2,11 @@ package com.vicky7230.sportyproblem.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.vicky7230.sportyproblem.di.AssistedViewModelFactory
 import com.vicky7230.sportyproblem.di.ViewModelFactory
 import com.vicky7230.sportyproblem.di.ViewModelKey
 import com.vicky7230.sportyproblem.ui.news.NewsViewModel
+import com.vicky7230.sportyproblem.ui.newsdetails.NewsDetailsViewModel
 
 
 import dagger.Binds
@@ -21,4 +23,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(NewsViewModel::class)
     abstract fun bindNewsViewModel(newsViewModel: NewsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewsDetailsViewModel::class)
+    abstract fun bindNewsDetailsViewModel(
+        factory: NewsDetailsViewModel.Factory,
+    ): @JvmSuppressWildcards AssistedViewModelFactory<out ViewModel>
 }

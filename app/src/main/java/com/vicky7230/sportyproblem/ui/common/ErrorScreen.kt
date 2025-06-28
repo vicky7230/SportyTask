@@ -1,5 +1,6 @@
 package com.vicky7230.sportyproblem.ui.common
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,11 +10,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -43,7 +47,8 @@ fun ErrorScreen(
             Image(
                 modifier = Modifier.size(80.dp),
                 painter = painterResource(R.drawable.ic_error),
-                contentDescription = "Error image"
+                contentDescription = "Error image",
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.error)
             )
             Text(
                 text = message,
@@ -57,6 +62,12 @@ fun ErrorScreen(
             )
             Button(
                 onClick = onRetryClick,
+                colors = ButtonDefaults.buttonColors().copy(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                    disabledContainerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
+                    disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                ),
             ) {
                 Text(
                     text = "RETRY",
@@ -71,10 +82,22 @@ fun ErrorScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun ErrorScreenPreview() {
-    SportyProblemTheme {
+fun ErrorScreenPreviewLight() {
+    SportyProblemTheme(darkTheme = false) {
+        ErrorScreen(
+            modifier = Modifier.fillMaxSize(),
+            onRetryClick = { },
+            message = "Something went wrong! Please try again later."
+        )
+    }
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun ErrorScreenPreviewDark() {
+    SportyProblemTheme(darkTheme = true) {
         ErrorScreen(
             modifier = Modifier.fillMaxSize(),
             onRetryClick = { },
